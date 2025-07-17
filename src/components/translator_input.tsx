@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react"
 import {addToast, ToastProvider} from "@heroui/toast";
-import SoundIcon from '../assets/images/sound_max_fill.svg'
-import Copy from '../assets/images/Copy.svg'
+import { translate } from "../libs/translator_function";
 import SortAlfa from '../assets/images/Sort_alfa.svg'
+import type{ translatorProps } from "../interfaces/page";
+import Utilities from "./utilities";
 
-const Translator = () => {
+const Translator = ({setTranslatedText }: translatorProps) => {
     const [text, setText] = useState<string>('Hello, how are you ?')
     const [count, setCount] = useState<number>(0)
+    const [textIn, setTextIn] =  useState<string>('en')
+    const [translateTo, setTranslateTo] =  useState<string>('fr')
+    
 
     const handleChange = ( e : React.ChangeEvent<HTMLInputElement>)=>{
         const newValue = e.target.value
@@ -15,25 +19,34 @@ const Translator = () => {
         }
     }
 
-    const copyText = (e : React.SyntheticEvent)=>{
-        e.preventDefault()
-        navigator.clipboard.writeText(text)
-
-    }
+    
     useEffect(()=>{
-        setCount(
-            text.length 
-        )
+        setCount(text.length)
+        const getTranslation = async () => {
+            const newText = await translate({
+                translatedText : text.length !== 0 ? text : '',
+                textIn : textIn,
+                translateTo : translateTo,
+            })
+            setTranslatedText(newText)
+        }
+        getTranslation()
     }, [text])
 
   return (
     <>
         <form action="">
-            <ul className="title">
-                <li>Detect Language</li>
-                <li> English </li>
-                <li>French</li>
-            </ul>
+            <div className="title">
+                <p>Detected Language</p>
+                <label htmlFor="en">
+                    <input type="checkbox" name="en" id=""/>
+                    English
+                </label>
+                <label htmlFor="fr">
+                    <input type="checkbox" name="fr" id="" />
+                    French
+                </label>
+            </div>
             <input 
                 className="content" 
                 type="text"
@@ -43,20 +56,12 @@ const Translator = () => {
             <div className="count">
                 {count}/500
             </div>
-            <div className="bottom">
-                <div>
-                    <button>
-                        <img src={SoundIcon} alt="sound icon" />
-                    </button>
-                    <button type="button" onClick={copyText}>
-                        <img src={Copy} alt="copy icon" />
-                    </button>
-                </div>
+            <Utilities text={text}>
                 <button type="submit">
                     <img src={SortAlfa} alt="translator logo" />
                     <span>Translator</span>
                 </button>
-            </div>
+            </Utilities>
         </form>
     </>
   )

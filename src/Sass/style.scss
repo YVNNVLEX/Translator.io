@@ -57,6 +57,12 @@ button[type="submit"]{
     border : none;
     display: flex;
     align-items: center;
+    justify-self: end;
     padding: 10px;
     font-family: "poppins";
+}
+
+.bottom {
+    display: flex;
+    align-items: center;
 }
