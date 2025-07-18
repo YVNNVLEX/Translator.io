@@ -10,3 +10,9 @@ export interface translatorProps{
 export interface translateComponentProps{
     translatedText : string
 }
+
+export interface translateProps {
+    translatedText: string,
+    textIn: string,
+    translateTo : string
+}
