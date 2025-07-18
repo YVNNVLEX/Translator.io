@@ -1,12 +1,7 @@
 import axios from "axios"
+import type { translateProps } from "../interfaces/page"
 
-interface translatorProps {
-    translatedText: string,
-    textIn: string,
-    translateTo : string
-}
-
-export const translate = async ({ translatedText, textIn, translateTo }: translatorProps) : Promise<string>  =>{
+export const translate = async ({ translatedText, textIn, translateTo }: translateProps) : Promise<string>  =>{
     try {
         const res = await axios.get(`https://api.mymemory.translated.net/get?q=${translatedText}&langpair=${textIn}|${translateTo}`)
         return res.data.responseData.translatedText

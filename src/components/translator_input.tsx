@@ -4,6 +4,7 @@ import { translate } from "../libs/translator_function";
 import SortAlfa from '../assets/images/Sort_alfa.svg'
 import type{ translatorProps } from "../interfaces/page";
 import Utilities from "./utilities";
+import debounce from "lodash.debounce";
 
 const Translator = ({setTranslatedText }: translatorProps) => {
     const [text, setText] = useState<string>('Hello, how are you ?')
@@ -30,7 +31,9 @@ const Translator = ({setTranslatedText }: translatorProps) => {
             })
             setTranslatedText(newText)
         }
-        getTranslation()
+        debounce(
+            getTranslation , 500
+        )
     }, [text])
 
   return (
