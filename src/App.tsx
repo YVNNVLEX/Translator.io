@@ -1,11 +1,13 @@
 import {useState} from 'react'
-import type { TitleProps } from './interfaces/page'
+import type { TitleProps } from './interfaces/interfaces'
 import Translator from './components/translator_input'
 import TranslateComponent from './components/translate_input'
 
-function App({title}: TitleProps) { // Parent
+function App({title}: TitleProps) {
 
   const [translateText, setTranslateText] = useState('')
+  const [translateTextIn, setTranslateTextIn] = useState('')
+
   
 
   return (
@@ -16,8 +18,8 @@ function App({title}: TitleProps) { // Parent
             <span>Translated.io</span>
         </div>
         <div className='contentdiv'>
-              <Translator setTranslatedText={setTranslateText}/>
-              <TranslateComponent translatedText={translateText} /> {/*Enfant */}
+              <Translator setTranslatedText={setTranslateText} setTranslatedTextTo={setTranslateTextIn}/>
+              <TranslateComponent translatedText={translateText} voiceTo={translateTextIn} />
         </div>
     </>
   )

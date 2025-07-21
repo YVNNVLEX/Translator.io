@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { translateProps } from "../interfaces/page"
+import type { translateProps } from "../interfaces/interfaces"
 
 export const translate = async ({ translatedText, textIn, translateTo }: translateProps) : Promise<string>  =>{
     try {

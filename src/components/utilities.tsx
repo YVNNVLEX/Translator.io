@@ -1,19 +1,16 @@
 import { useSpeech } from 'react-text-to-speech'
 import SoundIcon from '../assets/images/sound_max_fill.svg'
 import Copy from '../assets/images/Copy.svg'
-import type { PropsWithChildren } from 'react'
+import type { UtilitiesProps } from '../interfaces/interfaces'
 
-interface UtilitiesProps extends PropsWithChildren{
-    text : string,
-}
 
-const Utilities = ({text, children} : UtilitiesProps) => {
+const Utilities = ({text, voiceIn, children} : UtilitiesProps) => {
 
     const {
         speechStatus,
         start,
         stop
-    } = useSpeech({ text : text, lang : "en-US"})
+    } = useSpeech({ text : text, lang : voiceIn || "en-US"})
 
     const copyText = (e : React.SyntheticEvent)=>{
         e.preventDefault()
@@ -26,10 +23,16 @@ const Utilities = ({text, children} : UtilitiesProps) => {
                 <div>
                     {
                         speechStatus !== "started" ?
-                        <button type="button" onClick={start}>
+                        <button type="button" onClick={(e)=>{
+                            e.preventDefault()
+                            start()
+                        }}>
                             <img src={SoundIcon} alt="sound icon" />
                         </button> :
-                        <button onClick={stop}>
+                        <button onClick={(e)=>{
+                            e.preventDefault()
+                            stop()
+                        }}>
                             <img src={SoundIcon} alt="sound icon" />
                         </button>
                     }
