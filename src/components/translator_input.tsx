@@ -84,7 +84,7 @@ const Translator = ({setTranslatedText, setTranslatedTextTo }: translatorProps) 
                 {count}/500
             </div>
             <Utilities text={text} voiceIn={textIn}>
-                <button type="submit">
+                <button type="button" onClick={(e)=>{e.preventDefault()}}>
                     <img src={SortAlfa} alt="translator logo" />
                     <span>Translator</span>
                 </button>

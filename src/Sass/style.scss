@@ -35,14 +35,10 @@ form{
     border-radius: $rounded;
 }
 
-.logo{
+img#logo{
     display: flex;
     justify-content: center;
-    gap:5px;
-
-    span{
-        color: white;
-    }
+    align-items: center;
 }
 
 .contentdiv{
